@@ -14,8 +14,7 @@
 
   <button @click="changeUserName">修改UserNAme</button>
 
-
-  <button @click="registerDynamicModule">register 动态模块</button>
+    <button @click="registerModule">动态注册模块</button>
   <p v-for="(li,index) in todoList" :key='index'>{{ li }}</p>
 
 </div>
@@ -78,12 +77,12 @@ export default {
       this.$store.dispatch('updateAppName','appFromDispatch')
       this.SET_USER_NAME('NEW USER NAME - LASDFL')
     },
-    registerDynamicModule () {
-      this.$store.registerModule(['user','todo'],{
-        state:{
+     registerModule () {
+      this.$store.registerModule(['user', 'todo'], {
+        state: {
           todoList: [
-            'study',
-            'dynamic module'
+            '学习mutations',
+            '学习actions'
           ]
         }
       })
@@ -108,7 +107,8 @@ export default {
     ...mapState({
       userName: state => state.userName,
       appVersion: state => state.appVersion,
-      todoList: state => state.user.todo ? state.user.todo.todoList:[]
+      //todoList: state => state.user.todo ? state.user.todo.todoList : []  -> 当有//方法3 namespace helper时，不需要加.user.
+      todoList: state => state.todo ? state.todo.todoList : []
     }),
     appName () {
       return this.$store.state.appName
