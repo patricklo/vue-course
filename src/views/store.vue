@@ -1,8 +1,10 @@
 <template>
 <div>
   <a-input v-model="inputValue"></a-input>
-  <p>{{ inputValue }} -> last letter is {{ inputValueLastLetter }}</p>
-  <a-show :content="inputValue"/>
+  <!-- <a-input :value="stateInputValue" @input="handleStateInputValue"> </a-input> -->
+  <a-input v-model="stateInputValue" > </a-input>
+  <p>{{ stateInputValue }} -> last letter is {{ inputValueLastLetter }}</p>
+  <a-show :content="stateInputValue"/>
 
   <p>{{ appName }}, version:  {{ appNameWithVersion }}</p>
   <p>{{ userName }}, first letter {{ firstLetter}}</p>
@@ -49,14 +51,15 @@ export default {
   methods:{
     //mutations 方法2
     ...mapMutations([
-      'SET_APP_NAME'
+      'SET_APP_NAME',
+      'SET_STATE_INPUTVALUE'
     ]
     ),
     ...mapActions([
       'updateAppName'
     ]),
     ...mapMutations('user',[
-      'SET_USER_NAME'
+      'SET_USER_NAME',
     ]
     ),
 
@@ -76,6 +79,9 @@ export default {
     changeUserName(){
       this.$store.dispatch('updateAppName','appFromDispatch')
       this.SET_USER_NAME('NEW USER NAME - LASDFL')
+
+      //strict模式下会报错
+      this.$store.state.user.userName='haha'
     },
      registerModule () {
       this.$store.registerModule(['user', 'todo'], {
@@ -86,6 +92,9 @@ export default {
           ]
         }
       })
+    },
+    handleStateInputValue(val){
+        this.SET_STATE_INPUTVALUE(val)
     }
   },
   computed:{
@@ -108,8 +117,20 @@ export default {
       userName: state => state.userName,
       appVersion: state => state.appVersion,
       //todoList: state => state.user.todo ? state.user.todo.todoList : []  -> 当有//方法3 namespace helper时，不需要加.user.
-      todoList: state => state.todo ? state.todo.todoList : []
+      todoList: state => state.todo ? state.todo.todoList : [],
+      //当使用 :value="stateInputValue" @input="handleStateInputValue"> 时
+      //stateInputValue: state => state.stateInputValue
     }),
+    //当使用<a-input v-model="stateInputValue" > </a-input> 时候
+    stateInputValue:{
+      get () {
+        return this.$store.state.stateInputValue
+      },
+      set (value) {
+        this.SET_STATE_INPUTVALUE = value
+      }
+
+    },
     appName () {
       return this.$store.state.appName
     },

@@ -1,5 +1,6 @@
 const state = {
-  appName: 'vue=admin'
+  appName: 'vue=admin',
+  stateInputValue: 'abc'
 }
 
 export default state
