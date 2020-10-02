@@ -1,9 +1,9 @@
 import AMenu from './a-menu.vue'
-import ASubMenu from './a-submenu.vue'
+import ASubmenu from './a-submenu.vue'
 import AMenuItem from './a-menu-item.vue'
 
-export default{
+export default {
   AMenu,
-  ASubMenu,
+  ASubmenu,
   AMenuItem
 }
