@@ -13,6 +13,6 @@ module.exports = {
 
   //跨域设置,将所有非静态文件请求，经过proxy访问
   devServer: {
-      proxy: 'http://localhost:8080'
+      //proxy: 'http://localhost:8080'
   }
 }

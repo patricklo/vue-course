@@ -8,12 +8,15 @@
     <button @click="handleClick('replace')">replace到parent</button>
 
     <div>{{ food }}</div>
+
+    <button @click="getInfo">request data</button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import { getUserInfo} from '@/api/user'
 
 export default {
   name: 'Home',
@@ -46,6 +49,11 @@ export default {
     },
 
   methods:{
+    getInfo(){
+      getUserInfo({ userId: 21}).then(res => {
+        console.log(res)
+      })
+    },
       handleClick(type){
         if(type === 'back'){
         this.$router.go(-1)
