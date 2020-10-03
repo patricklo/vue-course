@@ -22,15 +22,16 @@
   </div>
 </template>
 <script>
-import menuComponents  from '_c/menu'
+import menuComponents from '_c/menu'
 import ReSubmenu from './re-submenu'
 const {
   AMenu,
   ASubmenu,
-  AMenuItem} = menuComponents
+  AMenuItem
+} = menuComponents
 export default {
   name: 'menu_page',
-  components:{
+  components: {
     ReSubmenu,
     AMenu,
     AMenuItem,
@@ -49,7 +50,7 @@ export default {
           title: '3333',
           children: [
             {
-              title:'3333-1'
+              title: '3333-1'
             },
             {
               title: '3333-2',

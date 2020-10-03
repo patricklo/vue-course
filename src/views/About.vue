@@ -8,9 +8,9 @@
 </template>
 <script>
 export default {
-  props:  {
-    food:{
-      type:String,
+  props: {
+    food: {
+      type: String,
       defulat: 'food'
     }
   }

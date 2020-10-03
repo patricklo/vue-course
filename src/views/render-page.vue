@@ -15,7 +15,7 @@
 <script>
 import List from '_c/list'
 import CountTo from '_c/count-to'
-//render函数的使用
+// render函数的使用
 export default {
   data () {
     return {
@@ -24,8 +24,8 @@ export default {
       //   {name: 'lili'}
       // ]
       list: [
-        {number: 100},
-        {number: 45}
+        { number: 100 },
+        { number: 45 }
       ]
     }
   },
@@ -34,7 +34,7 @@ export default {
     CountTo
   },
   methods: {
-    //方法1，使用render函数
+    // 方法1，使用render函数
     // renderFunc (h, name) {
     //   //自定义如何渲染list组件
     //   //同时需要获取到当前渲染的值，使用render-dom.js 函数式组件
@@ -45,21 +45,21 @@ export default {
     //   }, name)
     // }
 
-    //方法2，使用JSX函数 , 注意参数h 一定要写h
-    renderFunc (h, number){
+    // 方法2，使用JSX函数 , 注意参数h 一定要写h
+    renderFunc (h, number) {
       return (
-        //<i on-click={this.handleClick} style={{color: 'red'}}>{name}</i>
-        <CountTo nativeOn-click={this.handleNativeClick} on-on-animation-end={this.handleEnd} endVal={number} style={{color: 'red'}}> </CountTo>
+        // <i on-click={this.handleClick} style={{color: 'red'}}>{name}</i>
+        <CountTo nativeOn-click={this.handleNativeClick} on-on-animation-end={this.handleEnd} endVal={number} style={{ color: 'red' }}> </CountTo>
       )
     },
     handleClick (event) {
-        console.log("JSX: "+event)
+      console.log('JSX: ' + event)
     },
-    handleEnd(){
+    handleEnd () {
       console.log('end!')
     },
-    handleNativeClick(event){
-      console.log("handleNativeClick:"+event)
+    handleNativeClick (event) {
+      console.log('handleNativeClick:' + event)
     }
   }
 }

@@ -31,7 +31,7 @@ router.post('/login', function(req, res, next) {
         mes: 'success',
         data: {
           token: jwt.sign({ name: userName }, 'abcd', {
-            expiresIn: '1d'
+            expiresIn: '10'
           })
         }
       })

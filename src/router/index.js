@@ -1,35 +1,54 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './router'
-import { setTitle } from '@/lib/util'
+import store from '@/store'
+import { setTitle, getToken, setToken } from '@/lib/util'
 
-//因为vue-router作为一个插件，需要使用Vue.use引入
+// 因为vue-router作为一个插件，需要使用Vue.use引入
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  //mode: 'history',//默认是hash模式，也就是在访问链接中带#号 http://localhost:8080/#/
+  // mode: 'history',//默认是hash模式，也就是在访问链接中带#号 http://localhost:8080/#/
   routes
 })
 
-//导航全局守卫，控制页面跳转间的一些操作：如权限控制
-//to 和 from 均为路由对象， next为函数
-const HAS_LOGIN = true
+// 导航全局守卫，控制页面跳转间的一些操作：如权限控制
+// to 和 from 均为路由对象， next为函数
+const HAS_LOGIN = false
 router.beforeEach((to, from, next) => {
   to.meta && setTitle(to.meta.title)
-  if(to.name!='login'){
-    if(HAS_LOGIN) next()
-    else next({name: 'login'})
-  }else{
-    if(HAS_LOGIN) next({name: 'home'})
-    else next()
+  // if(to.name!='login'){
+  //   if(HAS_LOGIN) next()
+  //   else next({name: 'login'})
+  // }else{
+  //   if(HAS_LOGIN) next({name: 'home'})
+  //   else next()
+  // }
+  const token = getToken()
+  console.log('beforeEach token:' + token)
+  if (token) {
+    // 判断token是否有效
+    // 1。 api中封装authorization接口
+    // 2. 在store/modeule/user.js中使用authororization接口？？？ why?
+    //
+    store.dispatch('user/authorization', token).then(() => {
+      if (to.name === 'login') next({ name: 'home' })
+      else next()
+    }).catch(() => {
+      setToken('')
+      next({ name: 'login' })
+    })
+  } else {
+    if (to.name === 'login') next()
+    else next({ name: 'login' })
   }
 })
 
-//router.beforeResolve  // 在导航被确认前 -》指所有导航的Hook都结束（包括所有组件内守卫等），即导航被确认
+// router.beforeResolve  // 在导航被确认前 -》指所有导航的Hook都结束（包括所有组件内守卫等），即导航被确认
 
-//后置hook
+// 后置hook
 router.afterEach((to, from) => {
-  //login == false
+  // login == false
 })
 
 /**

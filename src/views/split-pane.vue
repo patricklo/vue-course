@@ -7,7 +7,7 @@
 </template>
 <script>
 import SplitPane from '_c/split-pane'
-export default{
+export default {
   data () {
     return {
       offset: 0.8
@@ -17,9 +17,9 @@ export default{
     SplitPane
   },
   methods: {
-    handleInput(value) {
-      console.log('child comp handleInput:'+value)
-      this.offset = value;
+    handleInput (value) {
+      console.log('child comp handleInput:' + value)
+      this.offset = value
     }
   }
 

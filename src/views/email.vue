@@ -9,9 +9,9 @@ export default {
   mounted () {
     console.log(this.$bus)
   },
-  methods:{
+  methods: {
     handleClick () {
-      this.$bus.$emit('on-click','Hello bus')
+      this.$bus.$emit('on-click', 'Hello bus')
     }
   }
 }

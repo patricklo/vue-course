@@ -15,8 +15,8 @@ export default {
       showChild: false
     }
   },
-  methods:{
-    handleClick(event){
+  methods: {
+    handleClick (event) {
       this.showChild = !this.showChild
     }
   }

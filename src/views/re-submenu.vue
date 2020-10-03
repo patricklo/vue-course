@@ -9,8 +9,8 @@
   </a-submenu>
 </template>
 <script>
-import menuComponents  from '_c/menu'
-const { ASubmenu, AMenuItem} = menuComponents
+import menuComponents from '_c/menu'
+const { ASubmenu, AMenuItem } = menuComponents
 export default {
   name: 'ReSubmenu',
   components: {
@@ -19,9 +19,9 @@ export default {
   props: {
     parent: {
       type: Object,
-      default: () => ({}) //如果type 是object,必须提供一个回调函数。
+      default: () => ({}) // 如果type 是object,必须提供一个回调函数。
     },
-    index:{
+    index: {
       type: Number
     }
   }

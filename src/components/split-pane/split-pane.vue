@@ -18,43 +18,42 @@ export default {
       default: 8
     }
   },
-  data (){
+  data () {
     return {
-      //leftOffset: 0.3,
+      // leftOffset: 0.3,
       canMove: false
     }
   },
-  computed:{
+  computed: {
     leftOffsetPercent () {
-        return `${this.value * 100}%`
+      return `${this.value * 100}%`
     },
     triggerLeft () {
-        return `calc(${this.value * 100}% - ${this.triggerWidth / 2}px)`
+      return `calc(${this.value * 100}% - ${this.triggerWidth / 2}px)`
     }
   },
   methods: {
     handleMouseDown (event) {
-      //给整个页面加上mouse move 事件
-      document.addEventListener('mousemove',this.handleMouseMove)
-      document.addEventListener('mouseup',this.handleMouseUp)
+      // 给整个页面加上mouse move 事件
+      document.addEventListener('mousemove', this.handleMouseMove)
+      document.addEventListener('mouseup', this.handleMouseUp)
       this.canMove = true
     },
     handleMouseUp (event) {
       this.canMove = false
     },
     handleMouseMove (event) {
-      if(!this.canMove) return
-      //event.pageX //鼠标距离容器左侧的距离
-      //left: 获取最外面容器的距离左侧的距离
+      if (!this.canMove) return
+      // event.pageX //鼠标距离容器左侧的距离
+      // left: 获取最外面容器的距离左侧的距离
       const outerRect = this.$refs.outer.getBoundingClientRect()
       console.log(event.pageX - outerRect.left)
-      const offset = event.pageX - outerRect.left;
-      const offsetPercent = offset/outerRect.width;
-      //this.value = offset / outerRect.width
-      console.log('parent comp handleMouseMove: '+offsetPercent)
-      //this.$emit 子组件与父组件通信
+      const offset = event.pageX - outerRect.left
+      const offsetPercent = offset / outerRect.width
+      // this.value = offset / outerRect.width
+      console.log('parent comp handleMouseMove: ' + offsetPercent)
+      // this.$emit 子组件与父组件通信
       this.$emit('input', offsetPercent)
-
     }
   }
 

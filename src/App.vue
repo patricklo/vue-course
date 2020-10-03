@@ -1,69 +1,36 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link :to="{ name: 'about_name' }">About</router-link>
+    <img src="./assets/logo.png">
+    <div>
+      <p>
+        If ViewUI is successfully added to this project, you'll see an
+        <code v-text="'<Button>'"></code>
+        below
+      </p>
+      <Button type="primary">Button</Button>
     </div>
-    <transition-group name="routerTransition">
-      <router-view key="default"/>
-      //命名视图
-      <router-view name="email" key="email"/>
-      <router-view name="tel" key="tel"/>
-    </transition-group>
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
+
 <script>
+import HelloWorld from './components/HelloWorld.vue'
+
 export default {
-  data(){
-    return {
-      routerTransition: ''
-    }
-  },
-  watch: {
-    '$route' (to) {
-      to.query && to.query.transitionName && (this.routerTransition = to.query.transitionName)
-    }
+  name: 'app',
+  components: {
+    HelloWorld
   }
 }
 </script>
 
-<style lang="less">
-.router-enter{
-opacity: 0;
-}
-.router-enter-active{
- transition: opacity 1s ease;
-}
-.router-enter-to{
-  opacity: 1;
-}
-.router-leave{
-  opacity: 0;
-}
-.router-leave-active{
-  transition: opacity 1s ease;
-}
-.router-leave-to{
-  opacity: 0;
-}
+<style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  //text-align: center;
+  text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  margin-top: 60px;
 }
 </style>
