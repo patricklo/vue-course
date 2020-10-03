@@ -1,7 +1,9 @@
 <template>
 <div class="layout-wrapper">
   <Layout class="layout-outer">
-    <Sider collapsible breakpoint="sm" reverse-arrow v-model="collapsed"></Sider>
+    <Sider :width="300" collapsible breakpoint="sm" reverse-arrow v-model="collapsed">
+      <side-menu :collapsed="collapsed" :list="menuList"></side-menu>
+    </Sider>
     <Layout>
       <Header class="header-wrapper">
         <!-- Icon 本身并没有click事件，click.native调用的是Icon组件最外层的html click事件-->
@@ -17,10 +19,38 @@
 </div>
 </template>
 <script>
+import SideMenu from '@/components/side-menu'
 export default {
+components:{
+  SideMenu
+},
 data (){
   return {
-    collapsed: false
+    collapsed: false,
+    menuList: [
+      {
+        title: '1',
+        name: 'menu1',
+        icon: 'ios-alarm'
+      },
+      {
+        title: '2',
+        name: 'menu2',
+        icon: 'ios-alarm'
+      },
+      {
+        title: '3',
+        name: 'menu3',
+        icon: 'ios-alarm',
+        children: [
+          {title:'3-1', name: 'menu3-1', icon: 'ios-alarm'},
+          {title:'3-2', name: 'menu3-2', icon: 'ios-alarm'},
+          {title:'3-3', name: 'menu3-3', icon: 'ios-alarm', children: [
+            {title: '3-3-1', name: 'menu3-3-1', icon: 'ios-alarm'}
+          ]},
+        ]
+      },
+    ]
   }
 },
 computed:{
@@ -36,9 +66,7 @@ methods:{
     this.collapsed = !this.collapsed
   }
 }
-
 }
-
 </script>
 <style lang="less">
 .layout-wrapper, .layout-outer{
