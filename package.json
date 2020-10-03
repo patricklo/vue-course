@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "countup": "^1.8.2",
+    "iview": "^3.5.4",
     "js-cookie": "^2.2.1",
     "md5": "^2.3.0",
     "view-design": "^4.0.0",

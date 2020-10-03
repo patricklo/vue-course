@@ -9,7 +9,7 @@ import 'iview/dist/styles/iview.css'
 // _c 是快捷路径 代表src/components目录
 import CountTo from '_c/count-to'
 
-import './plugins/iview.js'
+//import './plugins/iview.js'
 // if (process.env.NODE_ENV !== 'production') require('./mock')
 
 Vue.config.productionTip = false
