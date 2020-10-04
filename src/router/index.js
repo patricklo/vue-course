@@ -14,34 +14,35 @@ const router = new VueRouter({
 
 // 导航全局守卫，控制页面跳转间的一些操作：如权限控制
 // to 和 from 均为路由对象， next为函数
-const HAS_LOGIN = false
+const HAS_LOGIN = true
 router.beforeEach((to, from, next) => {
   to.meta && setTitle(to.meta.title)
-  // if(to.name!='login'){
-  //   if(HAS_LOGIN) next()
-  //   else next({name: 'login'})
-  // }else{
-  //   if(HAS_LOGIN) next({name: 'home'})
-  //   else next()
-  // }
-  const token = getToken()
-  console.log('beforeEach token:' + token)
-  if (token) {
-    // 判断token是否有效
-    // 1。 api中封装authorization接口
-    // 2. 在store/modeule/user.js中使用authororization接口？？？ why?
-    //
-    store.dispatch('user/authorization', token).then(() => {
-      if (to.name === 'login') next({ name: 'home' })
-      else next()
-    }).catch(() => {
-      setToken('')
-      next({ name: 'login' })
-    })
-  } else {
-    if (to.name === 'login') next()
-    else next({ name: 'login' })
+  if(to.name!='login'){
+    if(HAS_LOGIN) next()
+    else next({name: 'login'})
+  }else{
+    if(HAS_LOGIN) next({name: 'home'})
+    else next()
   }
+
+  // const token = getToken()
+  // console.log('beforeEach token:' + token)
+  // if (token) {
+  //   // 判断token是否有效
+  //   // 1。 api中封装authorization接口
+  //   // 2. 在store/modeule/user.js中使用authororization接口？？？ why?
+  //   //
+  //   store.dispatch('user/authorization', token).then(() => {
+  //     if (to.name === 'login') next({ name: 'home' })
+  //     else next()
+  //   }).catch(() => {
+  //     setToken('')
+  //     next({ name: 'login' })
+  //   })
+  // } else {
+  //   if (to.name === 'login') next()
+  //   else next({ name: 'login' })
+  // }
 })
 
 // router.beforeResolve  // 在导航被确认前 -》指所有导航的Hook都结束（包括所有组件内守卫等），即导航被确认

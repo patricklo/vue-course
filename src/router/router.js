@@ -126,6 +126,11 @@ export default [
     component: () => import('@/views/menu-page.vue')
   },
   {
+    path: '/upload',
+    name: 'upload',
+    component: () => import('@/views/upload.vue')
+  },
+  {
     path: '/render-page',
     name: 'render_page',
     component: () => import('@/views/render-page.vue')
