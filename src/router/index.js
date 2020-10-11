@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import routes from './router'
+import {routes} from './router'
 import store from '@/store'
 import { setTitle, getToken, setToken } from '@/lib/util'
+import clonedeep from 'clonedeep'  //如果使用深拷贝，会导致嵌套路由的一级组件不复用，所以建议不使用深拷贝，而是把vuex的严格模式关闭
 
 // 因为vue-router作为一个插件，需要使用Vue.use引入
 Vue.use(VueRouter)
@@ -14,16 +15,16 @@ const router = new VueRouter({
 
 // 导航全局守卫，控制页面跳转间的一些操作：如权限控制
 // to 和 from 均为路由对象， next为函数
-const HAS_LOGIN = true
+const HAS_LOGIN = false
 router.beforeEach((to, from, next) => {
   to.meta && setTitle(to.meta.title)
-  if(to.name!='login'){
-    if(HAS_LOGIN) next()
-    else next({name: 'login'})
-  }else{
-    if(HAS_LOGIN) next({name: 'home'})
-    else next()
-  }
+  // if(to.name!='login'){
+  //   if(HAS_LOGIN) next()
+  //   else next({name: 'login'})
+  // }else{
+  //   if(HAS_LOGIN) next({name: 'home'})
+  //   else next()
+  // }
 
   // const token = getToken()
   // console.log('beforeEach token:' + token)
@@ -43,6 +44,33 @@ router.beforeEach((to, from, next) => {
   //   if (to.name === 'login') next()
   //   else next({ name: 'login' })
   // }
+
+  const token = getToken()
+  if(token) {
+    console.log('hasgetRUle:'+store.state.router.hasGetRules)
+    if(!store.state.router.hasGetRules){
+      store.dispatch('user/authorization').then(rules => {
+        store.dispatch('concatRules', rules).then(routers => {
+          //不推荐使用clonedeep, -> 而是应该把vuex 的strict mode设为False
+          router.addRoutes(clonedeep(routers))
+          //不直接调用 next() 因为怕路由列表没有挂载完，会抛异常
+          //replace: true - 》 访问路径用替换的方式
+          next({...to, replace: true})
+        })
+      }).catch(() => {
+        next({name: 'login'})
+      })
+
+    }else{
+      next()
+    }
+  }else{
+      if (to.name === 'login') next()
+      else next({ name: 'login' })
+
+  }
+
+
 })
 
 // router.beforeResolve  // 在导航被确认前 -》指所有导航的Hook都结束（包括所有组件内守卫等），即导航被确认

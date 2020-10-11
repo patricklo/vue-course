@@ -1,7 +1,7 @@
 import Home from '@/views/Home.vue'
 import Layout from '@/views/layout.vue'
 
-export default [
+export const routerMap = [
   {
     path: '/',
     alias: '/home_page',
@@ -10,12 +10,11 @@ export default [
     children: [
       {
         path: 'home',
+        name: 'home_index',
         component: Home
       }
     ]
   },
-
-
   // 别名: alias
   // {
   //   path: '/',
@@ -34,11 +33,7 @@ export default [
   //     next()
   //   }
   // },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/login.vue')
-  },
+
 
   // 命名路由,添加name属性
   // 可以在App.vue中用name来跳转，而不是传统的path
@@ -126,6 +121,11 @@ export default [
     component: () => import('@/views/menu-page.vue')
   },
   {
+    path: '/form',
+    name: 'form',
+    component: () => import('@/views/form.vue')
+  },
+  {
     path: '/upload',
     name: 'upload',
     component: () => import('@/views/upload.vue')
@@ -136,12 +136,27 @@ export default [
     component: () => import('@/views/render-page.vue')
   },
   {
+    path: '/icon-page',
+    name: 'icon_page',
+    component: () => import('@/views/icon_page.vue')
+  },
+  {
     path: '/store',
     component: () => import('@/views/store.vue')
+  }
+]
+
+export const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login.vue')
   },
   {
     // 针对mode=hository 所有不在不包含在上面的访问路径 都到default页面
     path: '*',
-    component: () => import('@/views/default.vue')
+    component: () => import('@/views/error_404.vue')
   }
 ]
+
+

@@ -18,7 +18,7 @@ router.get('/authorization', (req, res, next) => {
     mes: 'success',
     data: {
       token: jwt.sign({ name: userName }, 'abcd', {
-        expiresIn: '10'
+        expiresIn: '1d'
       }),
       rules: {
         page: {
@@ -26,14 +26,14 @@ router.get('/authorization', (req, res, next) => {
           home_index: true,
           about: true,
           argu: true,
-          count_to: true,
+          count_to: false,
           menu_page: true,
           upload: true,
           form: true,
           folder_tree: true,
           table_page: true,
           render_page: true,
-          split_pane: true,
+          split_pane: false,
           parent: true,
           child: true,
           named_view: true,

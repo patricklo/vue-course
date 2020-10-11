@@ -10,7 +10,7 @@ const sequelize = new Sequelize('fss', username, password, {
 	port,
 	dialect: 'mysql',
 	logging: false,
-	operatorsAliases: {
+	operatorsAliases: { 
 		$and: Op.and,
 		$or: Op.or,
 		$eq: Op.eq,

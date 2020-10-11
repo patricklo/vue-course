@@ -18,7 +18,7 @@
 
     <Row :gutter="10">
       <i-col span="12">
-
+          {{rules}}
       </i-col>
       <i-col span="12">
 
@@ -30,6 +30,8 @@
       <i-col :md="6" :sm="12"></i-col>
       <i-col :md="6" :sm="12"></i-col>
     </Row>
+    <Button v-if="rules.edit_button">edit</Button>
+    <Button v-if="rules.publish_button">publish</Button>
   </div>
 </template>
 
@@ -37,6 +39,7 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import { getUserInfo } from '@/api/user'
+import { mapState, mapActions} from 'vuex'
 
 export default {
   name: 'Home',
@@ -48,6 +51,11 @@ export default {
       type: String,
       default: 'apple'
     }
+  },
+  computed:{
+    ...mapState({
+      rules: state => state.user.rules
+    })
   },
   // 组件内守卫：beforeRouteEnter,beforeRouteLeave,beforeRouteUpdate
   // 页面刚进入，未确认未渲染前调用
